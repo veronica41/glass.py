@@ -92,5 +92,4 @@ def foursquare_callback():
 
 if __name__ == '__main__':
     print "Starting application at %s:%i" % (config.HOST, config.PORT)
-    app.run(port=config.PORT, host=config.HOST)
-    
+    app.run(port=config.PORT, public=True, secure=True, debug=True)

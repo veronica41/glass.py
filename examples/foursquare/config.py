@@ -1,4 +1,5 @@
 # Application
+HOST = "vm012.elijah.cs.cmu.edu"
 PORT = 8080 
 
 # Google
