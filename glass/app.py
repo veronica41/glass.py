@@ -3,11 +3,14 @@ import flask
 import rauth
 import json
 import os
-import config
+import sys
 
 # Local imports
 from user import User
 from subscriptions import Subscriptions
+
+SSL_KEY_FILE = "vm012.elijah.cs.cmu.edu.key"
+SSL_CRT_FILE = "vm012.elijah.cs.cmu.edu.crt"
 
 OAUTH_ACCESS_TOKEN_URL = "https://accounts.google.com/o/oauth2/token"
 OAUTH_AUTHORIZE_URL = "https://accounts.google.com/o/oauth2/auth"
@@ -99,9 +102,12 @@ class Application(object):
         self.ssl_context = None
         if self.secure:
             from OpenSSL import SSL
-            self.ssl_context = SSL.Context(SSL.SSLv23_METHOD)
-            self.ssl_context.use_privatekey_file(config.SSL_KEY_FILE)
-            self.ssl_context.use_certificate_file(config.SSL_CERTIFICATE_FILE)
+            self.ssl_context = SSL.Context(SSL.TLSv1_METHOD)
+            dir = os.path.dirname(sys.argv[0])
+            if dir == '':
+                dir = os.curdir
+            self.ssl_context.use_privatekey_file(os.path.join(dir, SSL_KEY_FILE))
+            self.ssl_context.use_certificate_file(os.path.join(dir, SSL_CRT_FILE))
 
     def run(self, **kwargs):
         self.prepare(**kwargs)
