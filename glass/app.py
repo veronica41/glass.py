@@ -3,6 +3,7 @@ import flask
 import rauth
 import json
 import os
+import config
 
 # Local imports
 from user import User
@@ -95,8 +96,16 @@ class Application(object):
 
         self.web.debug = debug or self.debug
 
+        self.ssl_context = None
+        if self.secure:
+            from OpenSSL import SSL
+            self.ssl_context = SSL.Context(SSL.SSLv23_METHOD)
+            self.ssl_context.use_privatekey_file(config.SSL_KEY_FILE)
+            self.ssl_context.use_certificate_file(config.SSL_CERTIFICATE_FILE)
+
     def run(self, **kwargs):
         self.prepare(**kwargs)
-        self.web.run(port=self.port, host=("0.0.0.0" if self.public else "127.0.0.1"))
+        self.web.run(port=self.port, host=("0.0.0.0" if self.public else "127.0.0.1"),
+            ssl_context = self.ssl_context)
 
 
