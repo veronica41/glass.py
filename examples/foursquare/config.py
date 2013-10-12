@@ -1,10 +1,9 @@
 # Application
-HOST = "localhost"
-PORT = 5000
+PORT = 8080 
 
 # Google
-GOOGLE_CLIENT_ID = ""
-GOOGLE_CLIENT_SECRET = ""
+GOOGLE_CLIENT_ID = "345475634573-b5atfg97ucp9tt4t9qbn7atmm3ejn65t.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET = "_jLcnxY5opFt6br_bVHBrdfx"
 GOOGLE_SCOPES = [
     'https://www.googleapis.com/auth/glass.location',
     'https://www.googleapis.com/auth/glass.timeline',
@@ -13,6 +12,6 @@ GOOGLE_SCOPES = [
 ]
 
 # Foursquare
-FOURSQUARE_CLIENT_ID = ""
-FOURSQUARE_CLIENT_SECRET = ""
+FOURSQUARE_CLIENT_ID = "2RTUERQPW4YJBVWF4SF1Y3XBTAU2GN13AYDOYBYEDHYO2MWC"
+FOURSQUARE_CLIENT_SECRET = "TWBJDKTLGZOFNSZJZZMNTVXDYFWXBCBSVZEOILPBYCKW2BEX"
 FOURSQUARE_CLIENT_REDIRECT = "http://%s:%i/foursquare/callback" % (HOST, PORT)
