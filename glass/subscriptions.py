@@ -104,8 +104,7 @@ class Subscriptions(object):
 
         # Subscribe
         for sid, subscription in self.subscriptions.items():
-            callback_url = "https://%s:%i/glass/callback/%s" % (self.app.host, self.app.port,
-                subscription["id"])
+            callback_url = "https://%s/glass/callback/%s" % (self.app.host, subscription["id"])
             result = user.session.post("/mirror/v1/subscriptions", data=json.dumps({
                 "collection": subscription["collection"],
                 "userToken": userUniqueId,
@@ -113,6 +112,7 @@ class Subscriptions(object):
                 "callbackUrl": callback_url
             })).json()
             if (result is None or not "id" in result):
+                print callback_url
                 raise Exception("Error posting subscription ", result)
         return True
 
