@@ -99,6 +99,7 @@ class Application(object):
 
         self.web.debug = debug or self.debug
 
+        # SSL
         self.ssl_context = None
         if self.secure:
             from OpenSSL import SSL
