@@ -56,7 +56,7 @@ class Subscriptions(object):
             elif data["collection"] == "locations":
                 self.call_endpoint("location", user)
 
-        self.app.web.add_url_rule('/glass/callback/%s' % subscription_id, 'callback_%s' % subscription_id, handler)
+        self.app.web.add_url_rule('/glass/callback/%s' % subscription_id, 'callback_%s' % subscription_id, handler, methods=['GET', 'POST'])
 
 
     def add_endpoint(self, endpoint, callback):

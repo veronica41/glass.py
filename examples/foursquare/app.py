@@ -35,6 +35,7 @@ def index():
 @app.subscriptions.login
 def login(user):
     print "google user: %s" % (user.token)
+    print user
     session['token'] = user.token
     return redirect("/foursquare/authorize")
 
