@@ -48,7 +48,7 @@ class Subscriptions(object):
             data = json.loads(flask.request.data)
             userid = data["userToken"]
             if not userid in self.tokens:
-                raise Exception("Callback for a non-existant user")
+                raise Exception("Callback for a non-existant user %s", userid)
             user = User(app=self.app, token=self.tokens[userid])
             if data["collection"] == "timeline":
                 for action in data["actions"]:
