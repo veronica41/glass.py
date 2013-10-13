@@ -55,6 +55,7 @@ class Subscriptions(object):
                     self.call_endpoint("action."+action["type"], user)
             elif data["collection"] == "locations":
                 self.call_endpoint("location", user)
+            return ""
 
         self.app.web.add_url_rule('/glass/callback/%s' % subscription_id, 'callback_%s' % subscription_id, handler, methods=['GET', 'POST'])
 
@@ -112,7 +113,6 @@ class Subscriptions(object):
                 "callbackUrl": callback_url
             })).json()
             if (result is None or not "id" in result):
-                print callback_url
                 raise Exception("Error posting subscription ", result)
         return True
 
