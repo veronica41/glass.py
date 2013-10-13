@@ -9,8 +9,8 @@ import sys
 from user import User
 from subscriptions import Subscriptions
 
-SSL_KEY_FILE = "vm012.elijah.cs.cmu.edu.key"
-SSL_CRT_FILE = "vm012.elijah.cs.cmu.edu.crt"
+SSL_KEY_FILE = "keys/vm012.elijah.cs.cmu.edu.key.pem"
+SSL_CRT_FILE = "keys/vm012.elijah.cs.cmu.edu.crt.pem"
 
 OAUTH_ACCESS_TOKEN_URL = "https://accounts.google.com/o/oauth2/token"
 OAUTH_AUTHORIZE_URL = "https://accounts.google.com/o/oauth2/auth"

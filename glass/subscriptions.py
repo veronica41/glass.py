@@ -45,7 +45,7 @@ class Subscriptions(object):
 
         # Add view for subscription
         def handler():
-            data = json.loads(request.data)
+            data = json.loads(flask.request.data)
             userid = data["userToken"]
             if not userid in self.tokens:
                 raise Exception("Callback for a non-existant user")
