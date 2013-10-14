@@ -85,7 +85,6 @@ class Timeline(object):
         with open(path, "r") as templatefile:
             template = Template(templatefile.read())
             output = template.render(**kwargs)
-            print output
             return self.post(html=output)
 
     def get_attachment(self, cardid, attachmentId):
@@ -99,4 +98,14 @@ class Timeline(object):
         
         if (attachment is None or not "id" in attachment):
             raise Exception("Error getting attachment from timeline card ", attachment)
+
+        if (('isProcessingContent' in attachment) and attachment['isProcessingContent']):
+          # need to cache the attachment ID and retry later
+          return None
+
+        content = self.user.session.get(attachment['contentUrl'])
+        if (content is None or content.status_code != 200):
+            raise Exception("Error getting attachment content ", content)
+
+        attachment['content'] = content.text
         return attachment
