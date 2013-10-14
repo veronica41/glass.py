@@ -51,10 +51,9 @@ class Subscriptions(object):
                 raise Exception("Callback for a non-existant user %s" % userid)
             user = User(app=self.app, token=self.tokens[userid])
             if data["collection"] == "timeline":
-                for action in data["actions"]:
-                    self.call_endpoint("action."+action["type"], user)
+                self.call_endpoint("timeline", user, data)
             elif data["collection"] == "locations":
-                self.call_endpoint("location", user)
+                self.call_endpoint("location", user, data)
             return ""
 
         self.app.web.add_url_rule('/glass/callback/%s' % subscription_id, 'callback_%s' % subscription_id, handler, methods=['GET', 'POST'])
@@ -102,10 +101,12 @@ class Subscriptions(object):
 
         # Set user token to the map
         self.tokens[userUniqueId] = user.token
+        print "init user: %s, %s" % (userUniqueId, user.token)
 
         # Subscribe
         for sid, subscription in self.subscriptions.items():
             callback_url = "https://%s/glass/callback/%s" % (self.app.host, subscription["id"])
+            print "%s, %s, %s" % (subscription["collection"], subscription["operations"], callback_url)
             result = user.session.post("/mirror/v1/subscriptions", data=json.dumps({
                 "collection": subscription["collection"],
                 "userToken": userUniqueId,
@@ -131,11 +132,12 @@ class Subscriptions(object):
         self.add_endpoint("location", f)
         return f
 
-    def action(self, action, **options):
+    def timeline(self, f):
         """
-        A decorator that is used to register a function for an user action
+        A decorator that is used to register a function for an user timeline update or insert
         """
-        def decorator(f):
-            self.add_subscription("timeline", "UPDATE")
-            self.add_endpoint("action.%s" % action, f)
-        return decorator
+        self.add_subscription("timeline", ["UPDATE, INSERT"])
+        self.add_endpoint("timeline", f)
+        return f
+
+
