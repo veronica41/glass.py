@@ -87,3 +87,16 @@ class Timeline(object):
             output = template.render(**kwargs)
             print output
             return self.post(html=output)
+
+    def get_attachment(self, cardid, attachmentId):
+        """
+        Get a card attachment from the timeline
+        ref: https://developers.google.com/glass/v1/reference/timeline/attachments/get
+        """
+        r = self.user.session.get("/mirror/v1/timeline/%s/attachments/%s" %
+            (cardid, attachmentId))
+        attachment = r.json()
+        
+        if (attachment is None or not "id" in attachment):
+            raise Exception("Error getting attachment from timeline card ", attachment)
+        return attachment
