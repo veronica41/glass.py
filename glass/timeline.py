@@ -107,5 +107,5 @@ class Timeline(object):
         if (content is None or content.status_code != 200):
             raise Exception("Error getting attachment content ", content)
 
-        attachment['content'] = content.text
+        attachment['content'] = content.content
         return attachment
