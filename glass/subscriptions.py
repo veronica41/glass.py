@@ -58,7 +58,6 @@ class Subscriptions(object):
 
         self.app.web.add_url_rule('/glass/callback/%s' % subscription_id, 'callback_%s' % subscription_id, handler, methods=['GET', 'POST'])
 
-
     def add_endpoint(self, endpoint, callback):
         """
         Add a function to an endpoint
@@ -104,7 +103,7 @@ class Subscriptions(object):
         self.tokens[userUniqueId] = user.token
         print "init user: %s, %s" % (userUniqueId, user.token)
 
-        if (not subscribe)
+        if (not subscribe):
           return True
 
         # Subscribe
