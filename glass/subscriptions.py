@@ -88,7 +88,8 @@ class Subscriptions(object):
             back = callback(*args, **kwargs)
         return back
 
-    def init_user(self, user):
+    def init_user(self, user, subscribe=True):
+
         """
         Connect to the user notifications using registred subscriptions
         """
@@ -96,12 +97,15 @@ class Subscriptions(object):
         if len(userUniqueId) == 0:
             userUniqueId = str(uuid4())
             if userUniqueId in self.tokens:
-                # random id alredy used
-                return self.subscribe_user(user)
+                # random id already used, try again
+                return self.init_user(user)
 
         # Set user token to the map
         self.tokens[userUniqueId] = user.token
         print "init user: %s, %s" % (userUniqueId, user.token)
+
+        if (not subscribe)
+          return True
 
         # Subscribe
         for sid, subscription in self.subscriptions.items():
