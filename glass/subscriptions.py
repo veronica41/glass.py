@@ -101,6 +101,7 @@ class Subscriptions(object):
 
         # Set user token to the map
         self.tokens[userUniqueId] = user.token
+        user.user_token = userUniqueId
         print "init user: %s, %s" % (userUniqueId, user.token)
 
         if (not subscribe):

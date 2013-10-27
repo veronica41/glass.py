@@ -12,8 +12,12 @@ class User(object):
 
     def __init__(self, app=None, token=None):
         self.app = app
+        # access token
         self.token = token
-        
+
+        # this is the "userToken" used for subscriptions
+        self.user_token = None
+
         self.session = self.app.oauth.get_session(token=self.token)
         self.session.headers.update({'Content-Type': 'application/json'})
 
