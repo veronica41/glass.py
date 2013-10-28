@@ -87,7 +87,7 @@ class Subscriptions(object):
             back = callback(*args, **kwargs)
         return back
 
-    def init_user(self, user, subscribe=True):
+    def init_user(self, user):
 
         """
         Connect to the user notifications using registred subscriptions
@@ -103,9 +103,6 @@ class Subscriptions(object):
         self.tokens[userUniqueId] = user.token
         user.user_token = userUniqueId
         print "init user: %s, %s" % (userUniqueId, user.token)
-
-        if (not subscribe):
-          return True
 
         # Subscribe
         for sid, subscription in self.subscriptions.items():
