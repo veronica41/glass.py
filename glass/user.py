@@ -48,5 +48,6 @@ class User(object):
         if (location is None
         or not "latitude" in location
         or not "longitude" in location):
+            print location
             raise Exception("Invalid user location")
         return location
